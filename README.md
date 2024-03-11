@@ -14,5 +14,9 @@ local MyRadialLoader = Radialicious.new {
 	Ends = "Rounded" -- "Rounded": [OPTIONAL] If set to `Rounded` then both ends of the radial loader will be rounded.
 }
 
+local ScreenGui = path.to.screengui.here
+MyRadialLoader.ImageLabel.Parent = ScreenGui
+
+
 MyRadialLoader.Update(65) -- Updates the value/progress of the radial loader.
 ```
