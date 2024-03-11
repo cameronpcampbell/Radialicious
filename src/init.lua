@@ -7,7 +7,7 @@ local AssetService = game:GetService("AssetService")
 
 
 --> Types ---------------------------------------------------------------------------------------------
-type NewRadialConfig = {
+export type RadialConfig = {
 	Size: number,
 	Thickness: number?,
 	DefaultValue: number?,
@@ -88,9 +88,9 @@ local function DrawRoundedEnd(eImage: EditableImage, center: Vector2, radius: nu
 	eImage:WritePixels(topLeft, Vector2.one * diameter, pixelsArray)
 end
 
-local function NewRadial(config: NewRadialConfig)
+local function NewRadial(config: RadialConfig)
 	local size = config.Size
-	local thickness, defaultValue, overlayImageId, ends =
+	local thickness, value, overlayImageId, ends =
 		(config.Thickness or (size / 4)) + 1, config.DefaultValue or 28, config.OverlayImageId, config.Ends
 	
 	local sizeV2 = Vector2.one * size
@@ -160,7 +160,7 @@ local function NewRadial(config: NewRadialConfig)
 
 		eImage:WritePixels(Vector2.zero, sizeV2, pixelsArray)
 	
-		if true then
+		if ends == "Rounded" then
 			DrawRoundedEnd(eImage, Vector2.new(center, thickness / 2), thickness / 2, overlayImagePixelsArray, overlayImageHeight)
 			
 			local angle_radians = math.rad(((angle) - 90) % 360)
@@ -168,20 +168,28 @@ local function NewRadial(config: NewRadialConfig)
 			local x = center + middle_of_radial * math.cos(angle_radians)
 			local y = center + middle_of_radial * math.sin(angle_radians)
 			
-			DrawRoundedEnd(eImage, Vector2.new(x + .5, y + .5), thickness / 2, overlayImagePixelsArray, overlayImageHeight)
+			DrawRoundedEnd(eImage, Vector2.new(x + .6, y + .6), thickness / 2, overlayImagePixelsArray, overlayImageHeight)
 		end
 	end
 
-	drawRadial(defaultValue)
+	drawRadial(value)
 	
 	eImage.Parent = imageLabel
 	
 	return {
+		Value = value,
+		
 		ImageLabel = imageLabel,
 		
 		Update = function(progressPercentage: number)
-			drawRadial(progressPercentage)
-		end
+			value = progressPercentage
+			drawRadial(value)
+		end,
+		
+		Increment = function(incrementBy: number)
+			value += incrementBy
+			drawRadial(value)
+		end,
 	}
 end
 -------------------------------------------------------------------------------------------------------
