@@ -1,6 +1,17 @@
 # Radial Progress Bars For Roblox.
 
-NOTE: Requires `EditableMesh` and will only work in Studio at the moment.
+NOTE: Requires `EditableImage` and will only work in Studio at the moment.
+
+https://github.com/user-attachments/assets/770dc1d9-2063-4e1d-9aed-7d00e6e60ca6
+	
+<details>
+<summary>More Examples</summary>
+
+https://github.com/user-attachments/assets/643887c0-0fe7-4956-b02c-5a765be7db9a
+
+https://github.com/user-attachments/assets/8f7f9630-e46f-481c-b29f-8ddf0de108f6
+
+</details>
 
 ## Example Usage
 ```lua
